@@ -1,13 +1,17 @@
-export default g => {
-    const it = g()
-    (function iterate(val){
-        [it.next( val )]
-            .map(x => (
-                !x.done && "then" in x.value
-                ? x.value.then( iterate )
-                : setTimeout( function(){
-                    iterate( x.value )
-                }, 0)
-            ))
-    })()
+const iterate = (itr, val) => {
+    [itr.next(val)]
+    .map(x => (
+        !x.done
+        ? "then" in x.value
+            ? x.value.then(y => iterate(itr, y))
+            : setTimeout(_ => iterate(itr, x.value), 0)
+        : itr
+    ))
 }
+
+const a = g => {
+    const itr = g()
+    iterate(itr)
+}
+
+module.exports= a
