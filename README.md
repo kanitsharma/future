@@ -9,7 +9,7 @@ Yield promises in generator functions
 
 ### test.js
 ```javascript
-  const run = require('./index')
+  const run = require('yieldpromise')
   const fetch = require('node-fetch')
 
   run(function * main () {
