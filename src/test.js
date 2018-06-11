@@ -1,4 +1,4 @@
-const run = require('./index')
+const run = require('../dist/main')
 const fetch = require('node-fetch')
 
 run(function * main () {

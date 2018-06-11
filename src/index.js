@@ -14,4 +14,4 @@ const a = g => {
     iterate(itr)
 }
 
-module.exports= a
+module.exports = a
