@@ -1,4 +1,4 @@
-# future
+# yieldpromise
 Yield promises in generator functions
 
 ## Getting started
