@@ -30,12 +30,28 @@ run(function* main() {
 const run = require("yieldpromise");
 const fetch = require("node-fetch");
 
-// Using as a standalone function
 run(function* main(resolve, reject) {
   const a = yield fetch("https://jsonplaceholder.typicode.com/posts/1");
   const b = yield a.json();
   resolve(b);
 })
   .then(x => x.userId)
+  .then(console.log);
+```
+
+##### OR
+
+```javascript
+const run = require("yieldpromise");
+const fetch = require("node-fetch");
+
+fetch("https://jsonplaceholder.typicode.com/posts/1")
+  .then(x =>
+    run(function* main(resolve, reject) {
+      const a = yield x.json();
+      const b = a.userId;
+      resolve(b);
+    })
+  )
   .then(console.log);
 ```
