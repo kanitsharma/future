@@ -1,17 +1,18 @@
 const iterate = (itr, val) => {
-    [itr.next(val)]
-    .map(x => (
-        !x.done
+  const res = [itr.next(val)].map(
+    x =>
+      !x.done
         ? "then" in x.value
-            ? x.value.then(y => iterate(itr, y))
-            : setTimeout(_ => iterate(itr, x.value), 0)
+          ? x.value.then(y => iterate(itr, y))
+          : setTimeout(_ => iterate(itr, x.value), 0)
         : itr
-    ))
-}
+  );
+};
 
-const a = g => {
-    const itr = g()
-    iterate(itr)
-}
+const a = g =>
+  new Promise((resolve, reject) => {
+    const itr = g(resolve, reject);
+    iterate(itr);
+  });
 
-module.exports = a
+module.exports = a;
